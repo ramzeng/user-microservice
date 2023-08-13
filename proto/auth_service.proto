@@ -1,0 +1,34 @@
+syntax = "proto3";
+import "user_service.proto";
+
+option go_package = "github.com/ramzeng/user-microservice/pb";
+
+package pb;
+
+service Auth {
+  rpc CreateTokenViaPassword(CreateTokenViaPasswordRequest) returns (TokenResponse) {}
+  rpc CreateTokenViaRefreshToken(CreateTokenViaRefreshTokenRequest) returns (TokenResponse) {}
+
+  rpc GetUserViaAccessToken(GetUserViaAccessTokenRequest) returns (UserResponse) {}
+}
+
+message CreateTokenViaPasswordRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message CreateTokenViaRefreshTokenRequest {
+  string accessToken = 1;
+  string refreshToken = 2;
+}
+
+message TokenResponse {
+  string accessToken = 1;
+  int64 accessTokenExpiredAt = 2;
+  string refreshToken = 3;
+  int64 refreshTokenExpiredAt = 4;
+}
+
+message GetUserViaAccessTokenRequest {
+  string accessToken = 1;
+}

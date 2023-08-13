@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option go_package = "github.com/ramzeng/user-microservice/pb";
+
+package pb;
+
+service User {
+  rpc CreateUser(CreateUserRequest) returns (UserResponse);
+}
+
+message CreateUserRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message UserResponse {
+  uint64 id = 1;
+  string email = 2;
+  int64 createdAt = 3;
+  int64 updatedAt = 4;
+}
