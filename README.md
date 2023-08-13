@@ -1,5 +1,5 @@
 ## User Microservice
-a simple user microservice demo, it uses grpc and mysql.
+A simple user microservice demo, it uses grpc and mysql.
 
 ## Components
 - gRPC
