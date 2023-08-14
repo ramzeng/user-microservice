@@ -6,10 +6,20 @@ import (
 	"github.com/ramzeng/user-microservice/pb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/keepalive"
+	"time"
 )
 
 func main() {
-	connection, err := grpc.Dial("localhost:8080", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	connection, err := grpc.Dial(
+		"localhost:8080",
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithKeepaliveParams(keepalive.ClientParameters{
+			Time:                10 * time.Second, // send pings every 10 seconds if there is no activity
+			Timeout:             time.Second,      // wait 1 second for ping ack before considering the connection dead
+			PermitWithoutStream: true,             // send pings even without active streams
+		}),
+	)
 
 	if err != nil {
 		panic(fmt.Sprintf("grpc connection failed: %s", err))
