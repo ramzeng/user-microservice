@@ -43,7 +43,7 @@ logger:
 ```
 Start the service
 ```bash
-go run examples/server.go -path="../configs/service.yaml" -migrate=true
+go run examples/server.go -path="./configs/service.yaml" -migrate=true
 ```
 Start the client
 ```bash

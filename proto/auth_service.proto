@@ -1,12 +1,20 @@
 syntax = "proto3";
+
 import "user_service.proto";
+import "google/api/annotations.proto";
 
 option go_package = "github.com/ramzeng/user-microservice/pb";
 
 package pb;
 
 service Auth {
-  rpc CreateTokenViaPassword(CreateTokenViaPasswordRequest) returns (TokenResponse) {}
+  rpc CreateTokenViaPassword(CreateTokenViaPasswordRequest) returns (TokenResponse) {
+    option (google.api.http) = {
+      post: "/tokens:via-password"
+      body: "*"
+    };
+  }
+
   rpc CreateTokenViaRefreshToken(CreateTokenViaRefreshTokenRequest) returns (TokenResponse) {}
 
   rpc GetUserViaAccessToken(GetUserViaAccessTokenRequest) returns (UserResponse) {}

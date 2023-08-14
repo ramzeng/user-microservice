@@ -1,11 +1,18 @@
 syntax = "proto3";
 
+import "google/api/annotations.proto";
+
 option go_package = "github.com/ramzeng/user-microservice/pb";
 
 package pb;
 
 service User {
-  rpc CreateUser(CreateUserRequest) returns (UserResponse);
+  rpc CreateUser(CreateUserRequest) returns (UserResponse) {
+    option (google.api.http) = {
+      post: "/users"
+      body: "*"
+    };
+  };
 }
 
 message CreateUserRequest {
